@@ -1,4 +1,6 @@
-const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api'
+const BASE = import.meta.env.VITE_API_BASE || (import.meta.env.PROD
+  ? 'https://student-management-system-using-java-production.up.railway.app/api'
+  : 'http://localhost:8080/api')
 
 export function getToken() { return localStorage.getItem('edupilot_token') }
 

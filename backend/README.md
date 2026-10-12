@@ -8,6 +8,14 @@
 4. Deploy. Railway supplies `PORT`; Spring Boot listens on it. The application creates/updates its tables on startup and creates the initial admin account if that email does not exist.
 5. After deploying the frontend to Vercel, set `CORS_ALLOWED_ORIGINS` to its exact HTTPS origin (for example, `https://your-app.vercel.app`). Multiple comma-separated origins are supported.
 
+The backend's public root URL (`/`) and `/health` return a small JSON health response. The API endpoints remain protected as before.
+
+## Deploy the frontend to Vercel
+
+Set the Vercel project's **Root Directory** to `frontend`, **Build Command** to `npm run build`, and **Output Directory** to `dist`. Production builds use the Railway API URL by default. If using a different backend domain, set `VITE_API_BASE` in Vercel to its full API base URL, including `/api` (for example, `https://your-backend.up.railway.app/api`). Redeploy after changing environment variables.
+
+Set the backend's `CORS_ALLOWED_ORIGINS` to the Vercel site's origin only (for example, `https://your-app.vercel.app`), with no path or trailing slash.
+
 ### Backend service variables
 
 Add these in the Railway **backend service**, not the MySQL service:
