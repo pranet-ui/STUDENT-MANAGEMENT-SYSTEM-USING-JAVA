@@ -1,0 +1,15 @@
+com\edupilot\config\SeedAdmin.class
+com\edupilot\dto\StudentRequest.class
+com\edupilot\dto\LoginRequest.class
+com\edupilot\security\JwtService.class
+com\edupilot\controller\AuthController.class
+com\edupilot\repo\UserRepository.class
+com\edupilot\model\AppUser.class
+com\edupilot\dto\StudentResponse.class
+com\edupilot\model\Role.class
+com\edupilot\repo\StudentRepository.class
+com\edupilot\StudentManagementApplication.class
+com\edupilot\config\SecurityConfig.class
+com\edupilot\model\Student.class
+com\edupilot\security\JwtAuthFilter.class
+com\edupilot\controller\StudentController.class
