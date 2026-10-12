@@ -6,7 +6,7 @@
 2. Configure the backend service's **Root Directory** as `/backend`. Railway will build it from `backend/Dockerfile`.
 3. In the backend service's Variables, add the MySQL connection references and application settings listed below. Replace `MySQL` in the references if the database service has a different name.
 4. Deploy. Railway supplies `PORT`; Spring Boot listens on it. The application creates/updates its tables on startup and creates the initial admin account if that email does not exist.
-5. After deploying the frontend to Vercel, set `CORS_ALLOWED_ORIGINS` to its exact HTTPS origin (for example, `https://your-app.vercel.app`). Multiple comma-separated origins are supported.
+5. The Vercel origin `https://student-management-system-using-java-topaz.vercel.app` is allowed by default. For a different frontend domain, set `CORS_ALLOWED_ORIGINS` to its exact HTTPS origin. Multiple comma-separated origins are supported.
 
 The backend's public root URL (`/`) and `/health` return a small JSON health response. The API endpoints remain protected as before.
 
@@ -14,7 +14,7 @@ The backend's public root URL (`/`) and `/health` return a small JSON health res
 
 Set the Vercel project's **Root Directory** to `frontend`, **Build Command** to `npm run build`, and **Output Directory** to `dist`. Production builds use the Railway API URL by default. If using a different backend domain, set `VITE_API_BASE` in Vercel to its full API base URL, including `/api` (for example, `https://your-backend.up.railway.app/api`). Redeploy after changing environment variables.
 
-Set the backend's `CORS_ALLOWED_ORIGINS` to the Vercel site's origin only (for example, `https://your-app.vercel.app`), with no path or trailing slash.
+For a different Vercel domain, set the backend's `CORS_ALLOWED_ORIGINS` to the site's exact origin (no path or trailing slash).
 
 ### Backend service variables
 
@@ -41,4 +41,4 @@ To generate a suitable JWT secret locally with PowerShell:
 [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(48))
 ```
 
-The initial admin account is created only when its email is absent from the database. Changing `ADMIN_PASSWORD` later does not reset an existing account's password.
+The login form does not fetch administrator credentials from the backend. Enter the `ADMIN_EMAIL` and `ADMIN_PASSWORD` values configured in Railway's backend service. Those credentials are never exposed to the browser. The initial admin account is created only when its email is absent from the database. Changing `ADMIN_PASSWORD` later does not reset an existing account's password.

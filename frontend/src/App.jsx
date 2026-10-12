@@ -18,8 +18,8 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem('edupilot_session')) } catch { return null }
   })
   const [loginRole, setLoginRole] = useState('ADMIN')
-  const [email, setEmail] = useState('admin@edupilot.local')
-  const [password, setPassword] = useState('ChangeMe123!')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
   const [students, setStudents] = useState([])
   const [search, setSearch] = useState('')
@@ -140,10 +140,10 @@ export default function App() {
 function Login({ role, setRole, email, setEmail, password, setPassword, onSubmit, busy, error }) {
   return <div className="login-layout"><div className="login-visual"><div className="login-brand"><div className="brand-icon"><GraduationCap size={24}/></div><b>EduPilot</b></div><div className="visual-copy"><div className="eyebrow">ONE CAMPUS. ONE CONNECTED SPACE.</div><h1>Every student.<br/><span>Every possibility.</span></h1><p>A smarter, simpler way to manage student records and keep academic information within reach.</p><div className="visual-stat-row"><div><b>01</b><span>Centralized records</span></div><div><b>02</b><span>Role-based access</span></div><div><b>03</b><span>Academic visibility</span></div></div></div><div className="visual-orbit orbit-one"/><div className="visual-orbit orbit-two"/><div className="visual-footer">EDUPILOT · STUDENT MANAGEMENT SYSTEM</div></div>
     <div className="login-side"><div className="login-card"><div className="login-mobile-logo"><div className="brand-icon"><GraduationCap/></div><b>EduPilot</b></div><div className="login-welcome"><div className="eyebrow">WELCOME BACK</div><h2>Sign in to your portal</h2><p>Choose your account type to continue.</p></div>
-      <div className="role-switch"><button className={role==='ADMIN'?'selected':''} onClick={()=>{setRole('ADMIN');setEmail('admin@edupilot.local')}}><ShieldCheck size={17}/> Admin</button><button className={role==='STUDENT'?'selected':''} onClick={()=>{setRole('STUDENT');setEmail('')}}><GraduationCap size={18}/> Student</button></div>
+      <div className="role-switch"><button className={role==='ADMIN'?'selected':''} onClick={()=>{setRole('ADMIN');setEmail('')}}><ShieldCheck size={17}/> Admin</button><button className={role==='STUDENT'?'selected':''} onClick={()=>{setRole('STUDENT');setEmail('')}}><GraduationCap size={18}/> Student</button></div>
       <form onSubmit={onSubmit} className="login-form"><label>Email address</label><div className="input-wrap"><UserRound size={17}/><input type="email" required value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@college.edu"/></div><label>Password</label><div className="input-wrap"><LockKeyhole size={17}/><input type="password" required value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter your password"/></div>
         {error && <div className="form-error">{error}</div>}<button className="primary-btn login-submit" disabled={busy}>{busy?'Signing in...':'Sign in securely'} <ArrowUpRight size={17}/></button></form>
-      <div className="login-security"><ShieldCheck size={16}/><span>Secure sign-in · Role-based access control</span></div><p className="login-hint">Admin demo credentials are configured in the backend environment. Change the default password before use.</p></div><div className="login-side-footer">© 2026 EduPilot <span>Privacy-first student records</span></div></div></div>
+      <div className="login-security"><ShieldCheck size={16}/><span>Secure sign-in · Role-based access control</span></div><p className="login-hint">Use the admin email and password configured in Railway. Credentials are not sent to or displayed by the frontend.</p></div><div className="login-side-footer">© 2026 EduPilot <span>Privacy-first student records</span></div></div></div>
 }
 
 function Dashboard({ isAdmin, rows, average, above80, needsSupport, onManage, onAdd }) {

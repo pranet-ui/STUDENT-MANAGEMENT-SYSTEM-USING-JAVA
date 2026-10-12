@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Configuration
 public class SecurityConfig {
@@ -39,10 +40,14 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource(
         @Value("${app.cors.allowed-origins}") String allowedOrigins) {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
+        List<String> origins = Stream.concat(
+            Arrays.stream(allowedOrigins.split(",")),
+            Stream.of("https://student-management-system-using-java-topaz.vercel.app"))
             .map(String::trim)
             .filter(origin -> !origin.isEmpty())
-            .toList());
+            .distinct()
+            .toList();
+        config.setAllowedOrigins(origins);
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization","Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

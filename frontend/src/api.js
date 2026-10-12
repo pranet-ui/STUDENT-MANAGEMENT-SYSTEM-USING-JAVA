@@ -8,7 +8,15 @@ export async function api(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) }
   const token = getToken()
   if (token) headers.Authorization = `Bearer ${token}`
-  const response = await fetch(`${BASE}${path}`, { ...options, headers })
+  let response
+  try {
+    response = await fetch(`${BASE}${path}`, { ...options, headers })
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error('Unable to reach the backend. Check the Railway deployment and allow this Vercel site in backend CORS settings.')
+    }
+    throw error
+  }
   if (response.status === 204) return null
   const data = await response.json().catch(() => ({}))
   if (!response.ok) throw new Error(data.message || data.error || `Request failed (${response.status})`)
