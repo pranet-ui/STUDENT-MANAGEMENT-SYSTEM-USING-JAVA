@@ -13,7 +13,7 @@ export async function api(path, options = {}) {
     response = await fetch(`${BASE}${path}`, { ...options, headers })
   } catch (error) {
     if (error instanceof TypeError) {
-      throw new Error('Unable to reach the backend. Check the Railway deployment and allow this Vercel site in backend CORS settings.')
+      throw new Error('Unable to reach the backend. Check that the backend is running and that its CORS settings allow this frontend origin.')
     }
     throw error
   }

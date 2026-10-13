@@ -42,7 +42,9 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         List<String> origins = Stream.concat(
             Arrays.stream(allowedOrigins.split(",")),
-            Stream.of("https://student-management-system-using-java-topaz.vercel.app"))
+            Stream.of(
+                "https://student-management-system-using-java-topaz.vercel.app",
+                "https://student-management-system-frontend-uzlb.onrender.com"))
             .map(String::trim)
             .filter(origin -> !origin.isEmpty())
             .distinct()
